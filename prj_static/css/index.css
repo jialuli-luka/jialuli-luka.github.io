@@ -135,13 +135,13 @@ th {
   margin: 0;
 }
 
-.column {
+.result_column {
   float: left;
   width: 50%;
   padding: 5px;
 }
 
-.row::after {
+.result_row::after {
   content: "";
   clear: both;
   display: table;
