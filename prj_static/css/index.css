@@ -2,6 +2,12 @@ body {
   font-family: 'Noto Sans', sans-serif;
 }
 
+.table td,
+th {
+  text-align: center;
+  vertical-align: middle;
+}
+
 
 .footer .icon-link {
     font-size: 25px;
@@ -127,6 +133,18 @@ body {
 
 .results-carousel video {
   margin: 0;
+}
+
+.generation_example_item {
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+
+.generation_example::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 
 

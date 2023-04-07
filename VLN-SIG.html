@@ -196,7 +196,128 @@ We then fine-tune the agent on the VLN task with an auxiliary loss that minimize
       <center><img src="./VLN-SIG/method.png" alt="Teaser" width="100%"></center>
 
       <div class="content has-text-justified">
-<p>Illustration of the target semantics calculation process and our proposed three proxy tasks.</p>
+<p>We first calculate the overall image semantics with a weight function after filtering the visual vocabulary with dynamic codebook selection method. Then, we pre-train the VLN agent with three proxy tasks to learn the image semantic information.
+  Specifically, Masked Trajectory Modeling predicts the missing image semantics in a given navigation trajectory based on instructions. Masked Panorama Modeling predicts the image semantics of the missing views in a panorama. MTM and MPM together help the agent learn image semantics in both temporal and spatial space.
+Action Prediction with Image Generation mimics the action prediction process and predicts the image semantics of the next step. Lastly, we fine-tune the navigation agent on navigation loss and APIG loss. </p>
+      </div>
+
+    </div>
+  </div>
+  </div>
+</section>
+<hr>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+    <h2 class="title is-3">Results</h2>
+    <center>
+    <table border="1" >
+  <tr>
+    <th style="text-align: center; vertical-align: middle;" colspan="1">Model</th>
+    <th style="text-align: center; vertical-align: middle;" colspan="4">R2R</th>
+    <th style="text-align: center; vertical-align: middle;" colspan="2">CVDN</th>
+  </tr>
+  <tr>
+    <td style="text-align: center; vertical-align: middle;" colspan="1"></td>
+    <td style="text-align: center; vertical-align: middle;" colspan="2">Val Unseen</td>
+    <td style="text-align: center; vertical-align: middle;" colspan="2">Test</td>
+    <td style="text-align: center; vertical-align: middle;" colspan="1">Val Unseen</td>
+    <td style="text-align: center; vertical-align: middle;" colspan="1">Test</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td style="text-align: center; vertical-align: middle;">SR</td>
+    <td style="text-align: center; vertical-align: middle;">SPL</td>
+    <td style="text-align: center; vertical-align: middle;">SR</td>
+    <td style="text-align: center; vertical-align: middle;">SPL</td>
+    <td style="text-align: center; vertical-align: middle;">GP</td>
+    <td style="text-align: center; vertical-align: middle;">GP</td>
+  </tr>
+  <tr>
+    <td style="text-align: center; vertical-align: middle; width: 20%"><a href="https://arxiv.org/abs/2002.10638">PREVALENT</a></td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">58</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">53</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">54</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">51</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">3.15</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">2.44</td>
+  </tr>
+  <tr>
+    <td style="text-align: center; vertical-align: middle; width: 20%"><a href="https://arxiv.org/abs/2011.13922">Rec-BERT</a></td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">63</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">57</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">63</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">57</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">-</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">-</td>
+  </tr>
+  <tr>
+    <td style="text-align: center; vertical-align: middle; width: 20%"><a href="https://arxiv.org/abs/2110.13309">HAMT</a></td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">66</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">61</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">65</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">60</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">5.13</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">5.58</td>
+  </tr>
+  <tr>
+    <td style="text-align: center; vertical-align: middle; width: 20%">Ours</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%"><b>68</b></td>
+    <td style="text-align: center; vertical-align: middle; width: 10%"><b>62</b></td>
+    <td style="text-align: center; vertical-align: middle; width: 10%"><b>65</b></td>
+    <td style="text-align: center; vertical-align: middle; width: 10%"><b>60</b></td>
+    <td style="text-align: center; vertical-align: middle; width: 10%"><b>5.52</b></td>
+    <td style="text-align: center; vertical-align: middle; width: 10%"><b>5.83</b></td>
+  </tr>
+  <tr>
+    <td style="text-align: center; vertical-align: middle; width: 20%"><a href="https://arxiv.org/abs/2202.11742">DUET<sup>*</sup></a></td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">72</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">60</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">69</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">59</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">-</td>
+    <td style="text-align: center; vertical-align: middle; width: 10%">-</td>
+  </tr>
+  <tr>
+    <td style="text-align: center; vertical-align: middle; width: 20%">Ours<sup>*</sup></td>
+    <td style="text-align: center; vertical-align: middle; width: 10%"><b>72</b></td>
+    <td style="text-align: center; vertical-align: middle; width: 10%"><b>62</b></td>
+    <td style="text-align: center; vertical-align: middle; width: 10%"><b>72</b></td>
+    <td style="text-align: center; vertical-align: middle; width: 10%"><b>60</b></td>
+    <td style="text-align: center; vertical-align: middle; width: 10%"><b>-</b></td>
+    <td style="text-align: center; vertical-align: middle; width: 10%"><b>-</b></td>
+  </tr>
+</table>
+</center>
+      <div class="content has-text-justified">
+<p>Comparison with state-of-the-art agents on Room-to-Room (R2R) and Cooperative Vision-and-Dialog Navigation (CVDN) validation unseen set and test leaderboard. * denotes agent that utilizes graph information during navigation.</p>
+      </div>
+
+    </div>
+  </div>
+  </div>
+</section>
+<hr>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+    <h2 class="title is-3">Generation Examples</h2>
+
+    <div id="generation_example" class="generation_example">
+      <div class="generation_example_item">
+  <img src="./VLN-SIG/example1.png" alt="Teaser">
+</div>
+<div class="generation_example_item">
+  <img src="./VLN-SIG/example2.png" alt="Teaser">
+</div>
+</div>
+
+      <div class="content has-text-justified">
+<p>Our model could reasonably generate future semantics and reconstruct future images. We generate the token for each patch in the image with our APIG head learned with weighted patch probability. We set the weight vector to be an indicator vector, where the weight for the target patch is 1 and the others are 0. We use x% (x&#8712{70, 80, 90}) of the patches with ground truth tokens encoded with pre-trained dVAE, the rest patches with the tokens generated by our APIG head, and then use the dVAE decoder to decode the image. Our generated image could almost reconstruct the beds and pictures in the original image with small vague areas when given 70% of the ground truth tokens. In comparison, filling the 30% patches with random tokens will generate distorted images with large white parts, and the beds and pictures information cannot be identified. We also notice that our model still fails to generate the full image when all the tokens in the image are predicted by our APIG head, and needs at least 70% of the ground truth tokens to generate images of reasonable quality. </p>
       </div>
 
     </div>
